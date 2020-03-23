@@ -9,14 +9,17 @@ const app = express();
 
 setupDB((v) => console.log(v));
 
+const port = process.env.PORT || 4000;
+
 app.use(cors());
+
 app.use(
     '/graphql',
     graphqlHTTP({
         schema,
-        graphql: true,
+        graphiql: true,
         pretty: true
     })
 );
-const port = process.env.PORT || 4000;
-app.listen(port, () => console.log('Express server running on port 4000'));
+
+app.listen(port, () => console.log('Server running on port 4000'));

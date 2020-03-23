@@ -15,9 +15,12 @@ module.exports = {
 		ecmaVersion: 2018,
 		sourceType: 'module'
 	},
-	plugins: ['react'],
+	plugins: ['react', 'graphql'],
 	rules: {
 		semi: ['error', 'always'],
-		quotes: ['error', 'single']
+		quotes: ['error', 'single'],
+		"graphql/template-strings": ['error', {
+			env: 'relay'
+		}]
 	}
 };

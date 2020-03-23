@@ -4,18 +4,22 @@
 	"description": "",
 	"scripts": {
 		"start": "npm run clean && parcel index.html --public-url ./",
-		"dev": "npm run clean && parcel index.html",
+		"dev": "npm run clean && npm run relay && parcel index.html",
 		"build": "npm run clean && parcel build index.html",
 		"clean": "rm -rf dist .cache",
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"relay": "relay-compiler --src ./src --schema ./src/data/schema.graphql --extensions js jsx"
 	},
 	"keywords": [],
 	"author": "Risa Fletcher",
 	"license": "ISC",
 	"dependencies": {
+		"eslint-plugin-graphql": "^3.1.1",
 		"prop-types": "^15.7.2",
-		"react": "^16.13.0",
-		"react-dom": "^16.13.0"
+		"react": "^16.13.1",
+		"react-dom": "^16.13.0",
+		"react-relay": "^9.0.0",
+		"relay-runtime": "^9.0.0"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.8.7",
@@ -23,15 +27,21 @@
 		"@babel/preset-react": "^7.9.1",
 		"@testing-library/jest-dom": "^5.1.1",
 		"@testing-library/react": "^9.5.0",
+		"babel-plugin-relay": "^9.0.0",
 		"eslint": "^6.8.0",
 		"eslint-plugin-react": "^7.19.0",
+		"graphql": "^14.6.0",
 		"jest": "^25.1.0",
-		"parcel-bundler": "^1.12.4"
+		"parcel-bundler": "^1.12.4",
+		"relay-compiler": "^9.0.0"
 	},
 	"babel": {
 		"presets": [
 			"@babel/preset-react",
 			"@babel/preset-env"
+		],
+		"plugins": [
+			"relay"
 		]
 	}
 }

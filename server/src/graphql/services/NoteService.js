@@ -1,6 +1,6 @@
 const MongoDbRepository  = require('../repository/mongoDbRepository');
 
-module.exports = class NoteService {
+class NoteService {
     constructor() {
         this.NoteRepository  = new MongoDbRepository('Notes');
     }
@@ -21,3 +21,5 @@ module.exports = class NoteService {
         return this.NoteRepository.create(opt);
     }
 }
+
+module.exports = NoteService;

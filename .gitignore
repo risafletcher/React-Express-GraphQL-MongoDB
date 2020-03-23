@@ -4,3 +4,5 @@ client/node_modules
 client/.cache
 client/dist
 server/node_modules
+client/src/__generated__
+client/src/mutations/__generated__

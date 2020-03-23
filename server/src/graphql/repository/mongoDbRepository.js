@@ -2,7 +2,7 @@ const { ObjectId } = require('mongodb');
 const { getDB } = require('../../config/databaseConnection');
 
 // connect to database, expose APIs
-module.exports = class MongoDbRepo {
+class MongoDbRepository {
     constructor(collectionName) {
         this.collection = getDB().collection(collectionName);
     }
@@ -28,4 +28,17 @@ module.exports = class MongoDbRepo {
             });
         });
     }
+
+    create(opt) {
+        return new Promise((resolve, reject) => {
+            this.collection.insertOne(opt, (err, data) => {
+                if (err) {
+                    reject(err);
+                }
+                resolve(data.ops[0]);
+            })
+        })
+    }
 }
+
+module.exports = MongoDbRepository;

@@ -7,7 +7,7 @@
     "start": "npm run build && concurrently -n \"client,server\" -c \"bgCyan.bold,bgBlue.bold\" \"npm run start-client\" \"npm run start-server\"",
     "build-client": "npm run build --prefix client",
     "build-server": "npm run build --prefix server",
-    "build": "concurrently \"npm run build-client\" \"npm run build-server\"",
+    "build": "concurrently \"npm run build-client\"",
     "dev": "concurrently -n \"client,server\" -c \"bgCyan.bold,bgBlue.bold\" \"npm run dev-client\" \"npm run dev-server\"",
     "dev-client": "npm run dev --prefix client",
     "dev-server": "npm run dev --prefix server",
