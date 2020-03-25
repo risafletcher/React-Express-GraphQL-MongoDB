@@ -20,11 +20,13 @@ export default function createNoteMutation(content) {
         onCompleted: (response, errors) => console.log('Response received from server.'),
         updater: (store) => {
             const payload = store.getRootField('createNote');
-            const root = store.getRoot();
-            const notes = root.getLinkedRecords('notes');
-
-            const newNotes = [ ...notes, payload ];
-            root.setLinkedRecords(newNotes, 'notes');
+            const id = payload.getValue('_id');
+            const newNote = store.create(id, 'Note');
+            newNote.setValue(content, 'content');
+            newNote.setValue(id, '_id');
+            // const newNote = store.create()
+            // const newNotes = [ ...notes, payload ];
+            // root.setLinkedRecords(newNotes, 'notes');
         },
         onError: (err) => console.error(err)
     })
