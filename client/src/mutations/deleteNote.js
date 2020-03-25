@@ -17,7 +17,6 @@ export default function deleteNoteMutation(_id) {
             type: 'NODE_DELETE',
             deletedIDFieldName: '_id'
         }],
-		onCompleted: (response, errors) => console.log('Response received from server.'),
 		updater: (store) => {
             const root = store.getRoot();
             const notes = root.getLinkedRecords('notes');

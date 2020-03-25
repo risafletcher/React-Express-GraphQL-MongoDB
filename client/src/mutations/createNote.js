@@ -16,7 +16,6 @@ export default function createNoteMutation(content) {
     commitMutation(environment, {
         mutation,
         variables,
-        onCompleted: (response, errors) => console.log('Response received from server.'),
         updater: (store) => {
             const payload = store.getRootField('createNote');
             const id = payload.getValue('_id');

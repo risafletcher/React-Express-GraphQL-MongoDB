@@ -16,8 +16,6 @@ export default function updateNoteMutation(_id, content) {
 	commitMutation(environment, {
 		mutation,
 		variables,
-		onCompleted: (response, errors) =>
-			console.log('Response received from server.'),
 		updater: (store) => {
             const root = store.getRoot();
             const notes = root.getLinkedRecords('notes');
