@@ -1,30 +1,10 @@
 import React from 'react';
-import { graphql, QueryRenderer } from 'react-relay';
-import environment from './environment';
+import NotesTable from './components/NotesTable';
+import CreateNoteForm from './components/CreateNoteForm';
 
 export default () => (
-    <QueryRenderer
-        environment={environment}
-        query={graphql`
-            query AppQuery {
-                notes {
-                    _id
-                    content
-                }
-            }
-        `}
-        variables={{}}
-        render={({ error, props }) => {
-            if (error) {
-                console.log(error);
-                return <div>Error</div>
-            }
-
-            if (!props) {
-                return <div>Loading...</div>
-            }
-
-            return <div>Loaded</div>
-        }}
-    />
+    <main>
+        <CreateNoteForm/>
+        <NotesTable/>
+    </main>
 );

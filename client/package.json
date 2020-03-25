@@ -4,9 +4,9 @@
 	"description": "",
 	"scripts": {
 		"start": "npm run clean && parcel index.html --public-url ./",
-		"dev": "npm run clean && npm run relay && parcel index.html",
+		"dev": "npm run clean && npm run relay --watch && parcel index.html",
 		"build": "npm run clean && parcel build index.html",
-		"clean": "rm -rf dist .cache",
+		"clean": "rm -rf dist .cache src/__generated__ src/mutations/__generated__",
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"relay": "relay-compiler --src ./src --schema ./src/data/schema.graphql --extensions js jsx"
 	},

@@ -1,9 +1,9 @@
 const { NoteType } = require('../nodeTypes');
-const { GraphQLString, GraphQLList } = require('graphql');
+const { GraphQLString, GraphQLID } = require('graphql');
 const NoteService = require('../services/NoteService');
 
 const CreateNoteMutation = {
-	type: new GraphQLList(NoteType),
+	type: NoteType,
 	args: {
 		content: { type: GraphQLString }
 	},
@@ -14,6 +14,19 @@ const CreateNoteMutation = {
 	}
 };
 
+const DeleteNoteMutation = {
+    type: NoteType,
+    args: {
+        _id: { type: GraphQLID }
+    },
+    resolve: async (_, { _id }) => {
+        const noteService = new NoteService();
+        noteService.deleteNote(_id);
+        return _id;
+    }
+};
+
 module.exports = {
-    CreateNoteMutation
+    CreateNoteMutation,
+    DeleteNoteMutation
 };
