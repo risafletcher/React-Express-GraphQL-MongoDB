@@ -1,5 +1,9 @@
 const { GraphQLObjectType, GraphQLSchema } = require('graphql');
-const { CreateNoteMutation, DeleteNoteMutation } = require('./mutation/NotesMutation');
+const {
+    CreateNoteMutation,
+    DeleteNoteMutation,
+    UpdateNoteMutation
+} = require('./mutation/NotesMutation');
 const { NotesQuery } = require('./query/NotesQuery');
 
 const QueryType = new GraphQLObjectType({
@@ -14,7 +18,7 @@ const MutationType = new GraphQLObjectType({
     fields: () => ({
         createNote: CreateNoteMutation,
         deleteNote: DeleteNoteMutation,
-        // updateNote: UpdateNoteMutation
+        updateNote: UpdateNoteMutation
     })
 });
 

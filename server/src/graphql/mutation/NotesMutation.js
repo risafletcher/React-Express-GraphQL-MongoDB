@@ -14,6 +14,19 @@ const CreateNoteMutation = {
 	}
 };
 
+const UpdateNoteMutation = {
+    type: NoteType,
+    args: {
+        content: { type: GraphQLString },
+        _id: { type: GraphQLID }
+    },
+    resolve: async (_, { _id, content }) => {
+        const noteService = new NoteService();
+        const updatedNote = noteService.updateNote(_id, { content });
+    return updatedNote;    
+    }
+};
+
 const DeleteNoteMutation = {
     type: NoteType,
     args: {
@@ -28,5 +41,6 @@ const DeleteNoteMutation = {
 
 module.exports = {
     CreateNoteMutation,
+    UpdateNoteMutation,
     DeleteNoteMutation
 };

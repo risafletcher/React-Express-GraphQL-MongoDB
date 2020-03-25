@@ -1,12 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { graphql, QueryRenderer } from 'react-relay';
 import environment from '../../environment';
 import deleteNoteMutation from '../../mutations/deleteNote';
+import updateNoteMutation from '../../mutations/updateNote';
+
+const EditForm = ({ id, content, toggleForm }) => {
+    const [editedContent, setEditedContent] = useState(content);
+    const onSubmitForm = (e) => {
+        e.preventDefault();
+        if (editedContent !== content) {
+            updateNoteMutation(id, editedContent);
+        }
+        toggleForm();
+    }
+    return (
+        <form onSubmit={onSubmitForm}>
+            <label htmlFor='content' hidden>Content</label>
+            <input
+                type='text'
+                id='content'
+                name='content'
+                value={editedContent}
+                onChange={(e) => setEditedContent(e.target.value)}
+            />
+            <button type="submit">Submit</button>
+        </form>
+    );
+}
 
 const Table = ({ notes = [] }) => {
-    // const onRemoveButtonClick = (_id) => {
-    //     deleteNoteMutation(_id);
-    // };
+    const [ showEditForm, setShowEditForm ] = useState(false);
+    const toggleEditForm = () => setShowEditForm(!showEditForm);
 
     return (
         <table>
@@ -16,9 +40,12 @@ const Table = ({ notes = [] }) => {
             <tbody>
                 {notes.map(({ _id, content }) => (
                     <tr key={_id}>
-                        <td>{content}</td>
+                        <td>
+                            {showEditForm ? <EditForm id={_id} content={content} toggleForm={toggleEditForm}/> : content}
+                        </td>
                         <td>
                             <button onClick={() => deleteNoteMutation(_id)}>X</button>
+                            {!showEditForm && <button onClick={toggleEditForm}>Edit</button>}
                         </td>
                     </tr>
                 ))}
