@@ -1,3 +1,3 @@
 # GraphQL-MongoDB-React
 
-Me messing around with GraphQL and other cool stuff.
+Personal Template for React, Express, GraphQL, and MongoDB projects.
