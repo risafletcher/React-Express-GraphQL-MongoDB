@@ -4,55 +4,62 @@ import environment from '../../environment';
 import deleteNoteMutation from '../../mutations/deleteNote';
 import updateNoteMutation from '../../mutations/updateNote';
 
-const EditForm = ({ id, content, toggleForm }) => {
+const Row = ({ id, content }) => {
     const [editedContent, setEditedContent] = useState(content);
-    const onSubmitForm = (e) => {
+    const [showEditForm, setShowEditForm] = useState(false);
+    const _toggleForm = () => setShowEditForm(!showEditForm);
+
+    const _onSubmitForm = (e) => {
         e.preventDefault();
         if (editedContent !== content) {
             updateNoteMutation(id, editedContent);
         }
-        toggleForm();
-    }
-    return (
-        <form onSubmit={onSubmitForm}>
-            <label htmlFor='content' hidden>Content</label>
-            <input
-                type='text'
-                id='content'
-                name='content'
-                value={editedContent}
-                onChange={(e) => setEditedContent(e.target.value)}
-            />
-            <button type="submit">Submit</button>
-        </form>
-    );
-}
-
-const Table = ({ notes = [] }) => {
-    const [ showEditForm, setShowEditForm ] = useState(false);
-    const toggleEditForm = () => setShowEditForm(!showEditForm);
+        _toggleForm();
+    };
 
     return (
-        <table>
-            <thead>
-                
-            </thead>
-            <tbody>
-                {notes.map(({ _id, content }) => (
-                    <tr key={_id}>
-                        <td>
-                            {showEditForm ? <EditForm id={_id} content={content} toggleForm={toggleEditForm}/> : content}
-                        </td>
-                        <td>
-                            <button onClick={() => deleteNoteMutation(_id)}>X</button>
-                            {!showEditForm && <button onClick={toggleEditForm}>Edit</button>}
-                        </td>
-                    </tr>
-                ))}
-            </tbody>
-        </table>
+        <tr>
+            <td>
+                {showEditForm ? (
+                    <form onSubmit={_onSubmitForm}>
+                        <label htmlFor="content" hidden>Content</label>
+                        <input
+                            type="text"
+                            id="content"
+                            name="content"
+                            value={editedContent}
+                            onChange={(e) => setEditedContent(e.target.value)}
+                        />
+                        <button type="submit" hidden>Submit</button>
+                    </form>
+                ) : content}
+            </td>
+            <td>
+                <button onClick={() => deleteNoteMutation(id)}>X</button>
+                {!showEditForm ?
+                    <button onClick={_toggleForm}>Edit</button>
+                    : <button type="submit" onClick={_onSubmitForm}>Submit</button>
+                }
+            </td>
+        </tr>
     )
 };
+
+const Table = ({ notes = [] }) => (
+    <table>
+        <thead>
+            <tr>
+                <th>Content</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {notes.map(({ _id, content }) =>
+                <Row key={_id} id={_id} content={content}/>
+            )}
+        </tbody>
+    </table>
+);
 
 export default () => (
 	<QueryRenderer
@@ -75,12 +82,8 @@ export default () => (
 			if (!props) {
 				return <div>Loading...</div>;
             }
-			return (
-                <div>
-                    Loaded
-                    <Table notes={props.notes}/>
-                </div>
-            );
+
+			return <Table notes={props.notes}/>;
 		}}
 	/>
 );

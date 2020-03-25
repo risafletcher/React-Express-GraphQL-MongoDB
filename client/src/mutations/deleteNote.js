@@ -23,8 +23,8 @@ export default function deleteNoteMutation(_id) {
             const notes = root.getLinkedRecords('notes');
             const oldRecord = store.get(_id);
             const updatedNotes = notes.filter((record) => record !== oldRecord);
-            root.setLinkedRecords(updatedNotes, 'notes');
             store.delete(_id);
+            root.setLinkedRecords(updatedNotes, 'notes');
 		},
 		onError: (err) => console.error(err)
 	});

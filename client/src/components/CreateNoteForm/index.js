@@ -13,7 +13,12 @@ export default () => {
     return (
         <form onSubmit={_handleSubmit}>
             <label htmlFor="content">Content</label>
-            <input type="text" id="content" onChange={(e) => setContent(e.target.value)}/>
+            <input
+                type="text"
+                id="content"
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+            />
             <button type="submit">Submit</button>
         </form>
     )

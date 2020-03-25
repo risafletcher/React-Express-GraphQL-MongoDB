@@ -19,6 +19,7 @@ module.exports = {
 	rules: {
 		semi: ['error', 'always'],
 		quotes: ['error', 'single'],
+		"jsx-quotes": ['error', 'prefer-double'],
 		"graphql/template-strings": ['error', {
 			env: 'relay'
 		}]

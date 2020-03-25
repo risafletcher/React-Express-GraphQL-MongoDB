@@ -19,9 +19,9 @@ export default function createNoteMutation(content) {
         onCompleted: (response, errors) => console.log('Response received from server.'),
         updater: (store) => {
             const payload = store.getRootField('createNote');
-            const root = store.getRoot();
-            const notes = root.getLinkedRecords('notes');
             const id = payload.getValue('_id');
+            const root = store.getRoot();
+            const notes = root.getLinkedRecords('notes') || [];
             const newNote = store.create(id, 'Note');
             newNote.setValue(content, 'content');
             newNote.setValue(id, '_id');
